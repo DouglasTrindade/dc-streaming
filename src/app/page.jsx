@@ -1,7 +1,27 @@
+"use client";
 import Header from "@/components/Header";
 import InputSubscribe from "@/components/InputSubscribe";
+import { useState, useEffect } from "react";
+import { LiveShowCarousel } from "@/components/LiveShowCarousel";
 
-export default function Home() {
+const moviesURL = process.env.NEXT_PUBLIC_API;
+const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+
+const Home = () => {
+  const [topMovies, setTopMovies] = useState([]);
+
+  const getTopRatedMovies = async (url) => {
+    const res = await fetch(url);
+    const data = await res.json();
+    setTopMovies(data.results);
+  };
+
+  useEffect(() => {
+    const topRatedUrl = `${moviesURL}top_rated?api_key=${apiKey}`;
+
+    getTopRatedMovies(topRatedUrl);
+  }, []);
+
   return (
     <>
       <main className="relative bg-[url('/bg-subscribe.png')] bg-cover">
@@ -27,7 +47,9 @@ export default function Home() {
         <div className="container">
           <section className="my-12">
             <span className="text-xl font-semibold">Live Show</span>
-            <div className="mt-3">Cards</div>
+            <div className="mt-3 w-full">
+              <LiveShowCarousel />
+            </div>
           </section>
           <section className="my-12">
             <span className="text-xl font-semibold">Most Popular</span>
@@ -45,4 +67,6 @@ export default function Home() {
       </hero>
     </>
   );
-}
+};
+
+export default Home;
