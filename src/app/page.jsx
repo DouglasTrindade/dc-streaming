@@ -3,12 +3,21 @@ import Header from "@/components/Header";
 import InputSubscribe from "@/components/InputSubscribe";
 import { useState, useEffect } from "react";
 import { LiveShowCarousel } from "@/components/LiveShowCarousel";
+import { Carousel } from "@/components/Carousel";
 
-const moviesURL = process.env.NEXT_PUBLIC_API;
+const moviesUrl = process.env.NEXT_PUBLIC_API;
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
 const Home = () => {
   const [topMovies, setTopMovies] = useState([]);
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [theAir, setTheAir] = useState([]);
+
+  const getTheAir = async (url) => {
+    const res = await fetch(url);
+    const data = await res.json();
+    setTheAir(data.results);
+  };
 
   const getTopRatedMovies = async (url) => {
     const res = await fetch(url);
@@ -16,12 +25,21 @@ const Home = () => {
     setTopMovies(data.results);
   };
 
+  const getPopularMovies = async (url) => {
+    const res = await fetch(url);
+    const data = await res.json();
+    setPopularMovies(data.results);
+  };
+
   useEffect(() => {
-    const topRatedUrl = `${moviesURL}top_rated?api_key=${apiKey}`;
+    const topRatedUrl = `${moviesUrl}top_rated?api_key=${apiKey}`;
+    const popularMovies = `${moviesUrl}popular?api_key=${apiKey}`;
+    const onTheAir = `${moviesUrl}on_the_air?api_key=${apiKey}`;
 
+    getTheAir(onTheAir);
     getTopRatedMovies(topRatedUrl);
+    getPopularMovies(popularMovies);
   }, []);
-
   return (
     <>
       <main className="relative bg-[url('/bg-subscribe.png')] bg-cover">
@@ -48,16 +66,18 @@ const Home = () => {
           <section className="my-12">
             <span className="text-xl font-semibold">Live Show</span>
             <div className="mt-3 w-full">
-              <LiveShowCarousel />
+              <LiveShowCarousel topMovies={topMovies} />
             </div>
           </section>
           <section className="my-12">
             <span className="text-xl font-semibold">Most Popular</span>
-            <div className="mt-3">Cards</div>
+            <div className="mt-3">
+              <Carousel popularMovies={popularMovies} />
+            </div>
           </section>
           <section className="my-12">
-            <span className="text-xl font-semibold">Movies for you</span>
-            <div className="mt-3">Cards</div>
+            <span className="text-xl font-semibold">Top Rated</span>
+            <div className="mt-3">{/* <Carousel theAir={theAir} /> */}</div>
           </section>
           <section className="my-12">
             <span className="text-xl font-semibold">Latest Music</span>
