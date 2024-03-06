@@ -9,24 +9,45 @@ import "swiper/css/free-mode";
 
 const imageUrl = process.env.NEXT_PUBLIC_IMG;
 
-export const LiveShowCarousel = ({ topMovies }) => {
+export const LiveShowCarousel = ({ theAir }) => {
   return (
     <>
       <Swiper
-        spaceBetween={20}
-        slidesPerView={4}
         freeMode={true}
         modules={[FreeMode]}
         grabCursor={true}
         onSlideChange={() => console.log("slide change")}
         onSwiper={(swiper) => console.log(swiper)}
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          530: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
+          760: {
+            slidesPerView: 3,
+            spaceBetween: 10,
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 10,
+          },
+          1200: {
+            slidesPerView: 5,
+            spaceBetween: 10,
+          },
+        }}
       >
-        {topMovies.length > 0 &&
-          topMovies.map((movie) => (
-            <SwiperSlide key={movie.id}>
+        {theAir.length > 0 &&
+          theAir.map((air) => (
+            <SwiperSlide key={air.id}>
               <LiveShowCard
-                src={imageUrl + movie?.poster_path}
-                title={movie.title}
+                src={imageUrl + air?.poster_path}
+                title={air.name}
+                view={air.popularity}
               />
             </SwiperSlide>
           ))}

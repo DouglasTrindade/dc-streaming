@@ -1,4 +1,5 @@
 "use client";
+
 import Header from "@/components/Header";
 import InputSubscribe from "@/components/InputSubscribe";
 import { useState, useEffect } from "react";
@@ -7,6 +8,7 @@ import { Carousel } from "@/components/Carousel";
 
 const moviesUrl = process.env.NEXT_PUBLIC_API;
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+const movieTv = process.env.NEXT_PUBLIC_TV_API;
 
 const Home = () => {
   const [topMovies, setTopMovies] = useState([]);
@@ -34,7 +36,7 @@ const Home = () => {
   useEffect(() => {
     const topRatedUrl = `${moviesUrl}top_rated?api_key=${apiKey}`;
     const popularMovies = `${moviesUrl}popular?api_key=${apiKey}`;
-    const onTheAir = `${moviesUrl}on_the_air?api_key=${apiKey}`;
+    const onTheAir = `${movieTv}on_the_air?api_key=${apiKey}`;
 
     getTheAir(onTheAir);
     getTopRatedMovies(topRatedUrl);
@@ -66,7 +68,7 @@ const Home = () => {
           <section className="my-12">
             <span className="text-xl font-semibold">Live Show</span>
             <div className="mt-3 w-full">
-              <LiveShowCarousel topMovies={topMovies} />
+              <LiveShowCarousel theAir={theAir} />
             </div>
           </section>
           <section className="my-12">
@@ -77,7 +79,9 @@ const Home = () => {
           </section>
           <section className="my-12">
             <span className="text-xl font-semibold">Top Rated</span>
-            <div className="mt-3">{/* <Carousel theAir={theAir} /> */}</div>
+            <div className="mt-3">
+              <Carousel theAir={theAir} />
+            </div>
           </section>
           <section className="my-12">
             <span className="text-xl font-semibold">Latest Music</span>
