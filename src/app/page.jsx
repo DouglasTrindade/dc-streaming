@@ -4,27 +4,30 @@ import Header from "@/components/Header";
 import InputSubscribe from "@/components/InputSubscribe";
 import { useState, useEffect } from "react";
 import { LiveShowCarousel } from "@/components/LiveShowCarousel";
-import { Carousel } from "@/components/Carousel";
+import { MostPopularCarousel } from "@/components/MostPopularCarousel";
+import { TopRatedCarousel } from "@/components/TopRatedCarousel";
+import { LatestCarousel } from "@/components/LatestCarousel";
 
 const moviesUrl = process.env.NEXT_PUBLIC_API;
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-const movieTv = process.env.NEXT_PUBLIC_TV_API;
+const movieTvUrl = process.env.NEXT_PUBLIC_TV_API;
 
 const Home = () => {
-  const [topMovies, setTopMovies] = useState([]);
+  const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
-  const [theAir, setTheAir] = useState([]);
+  const [liveShow, setLiveShow] = useState([]);
+  const [latestMovies, setLatestMovies] = useState([]);
 
-  const getTheAir = async (url) => {
+  const getLiveShow = async (url) => {
     const res = await fetch(url);
     const data = await res.json();
-    setTheAir(data.results);
+    setLiveShow(data.results);
   };
 
   const getTopRatedMovies = async (url) => {
     const res = await fetch(url);
     const data = await res.json();
-    setTopMovies(data.results);
+    setTopRatedMovies(data.results);
   };
 
   const getPopularMovies = async (url) => {
@@ -33,15 +36,24 @@ const Home = () => {
     setPopularMovies(data.results);
   };
 
+  const getLatestMovies = async (url) => {
+    const res = await fetch(url);
+    const data = await res.json();
+    setLatestMovies(data.results);
+  };
+
   useEffect(() => {
     const topRatedUrl = `${moviesUrl}top_rated?api_key=${apiKey}`;
-    const popularMovies = `${moviesUrl}popular?api_key=${apiKey}`;
-    const onTheAir = `${movieTv}on_the_air?api_key=${apiKey}`;
+    const popularMovieUrl = `${moviesUrl}popular?api_key=${apiKey}`;
+    const liveShowUrl = `${movieTvUrl}on_the_air?api_key=${apiKey}`;
+    const latestMovieUrl = `${moviesUrl}latest?api_key=${apiKey}`;
 
-    getTheAir(onTheAir);
+    getLiveShow(liveShowUrl);
     getTopRatedMovies(topRatedUrl);
-    getPopularMovies(popularMovies);
+    getPopularMovies(popularMovieUrl);
+    getLatestMovies(latestMovieUrl);
   }, []);
+
   return (
     <>
       <main className="relative bg-[url('/bg-subscribe.png')] bg-cover">
@@ -68,24 +80,26 @@ const Home = () => {
           <section className="my-12">
             <span className="text-xl font-semibold">Live Show</span>
             <div className="mt-3 w-full">
-              <LiveShowCarousel theAir={theAir} />
+              <LiveShowCarousel liveShow={liveShow} />
             </div>
           </section>
           <section className="my-12">
             <span className="text-xl font-semibold">Most Popular</span>
             <div className="mt-3">
-              <Carousel popularMovies={popularMovies} />
+              <MostPopularCarousel popularMovies={popularMovies} />
             </div>
           </section>
           <section className="my-12">
             <span className="text-xl font-semibold">Top Rated</span>
             <div className="mt-3">
-              <Carousel theAir={theAir} />
+              <TopRatedCarousel topRatedMovies={topRatedMovies} />
             </div>
           </section>
           <section className="my-12">
-            <span className="text-xl font-semibold">Latest Music</span>
-            <div className="mt-3">Cards</div>
+            <span className="text-xl font-semibold">Latest Movies</span>
+            <div className="mt-3">
+              <LatestCarousel latestMovies={latestMovies} />
+            </div>
           </section>
         </div>
       </hero>
