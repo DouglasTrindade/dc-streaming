@@ -9,7 +9,7 @@ import "swiper/css/free-mode";
 
 const imageUrl = process.env.NEXT_PUBLIC_IMG;
 
-export const LatestCarousel = ({ latestMovies }) => {
+export const UpcomingCarousel = ({ upcomingMovies }) => {
   return (
     <>
       <Swiper
@@ -45,13 +45,13 @@ export const LatestCarousel = ({ latestMovies }) => {
           },
         }}
       >
-        {latestMovies &&
-          latestMovies.map((latestMovie) => (
-            <SwiperSlide key={latestMovie.id}>
+        {upcomingMovies &&
+          upcomingMovies.map((upcomingMovie) => (
+            <SwiperSlide key={upcomingMovie.id}>
               <CardMovie
-                src={imageUrl + latestMovie?.backdrop_path}
-                alt={latestMovie.title}
-                title={latestMovie.title}
+                src={imageUrl + upcomingMovie?.backdrop_path}
+                alt={upcomingMovie.title}
+                title={upcomingMovie.title}
               />
             </SwiperSlide>
           ))}

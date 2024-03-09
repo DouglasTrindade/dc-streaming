@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { LiveShowCarousel } from "@/components/LiveShowCarousel";
 import { MostPopularCarousel } from "@/components/MostPopularCarousel";
 import { TopRatedCarousel } from "@/components/TopRatedCarousel";
-import { LatestCarousel } from "@/components/LatestCarousel";
+import { UpcomingCarousel } from "@/components/UpcomingCarousel";
 
 const moviesUrl = process.env.NEXT_PUBLIC_API;
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
@@ -16,7 +16,7 @@ const Home = () => {
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
   const [liveShow, setLiveShow] = useState([]);
-  const [latestMovies, setLatestMovies] = useState([]);
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
 
   const getLiveShow = async (url) => {
     const res = await fetch(url);
@@ -36,22 +36,22 @@ const Home = () => {
     setPopularMovies(data.results);
   };
 
-  const getLatestMovies = async (url) => {
+  const getUpcomingMovies = async (url) => {
     const res = await fetch(url);
     const data = await res.json();
-    setLatestMovies(data.results);
+    setUpcomingMovies(data.results);
   };
 
   useEffect(() => {
     const topRatedUrl = `${moviesUrl}top_rated?api_key=${apiKey}`;
     const popularMovieUrl = `${moviesUrl}popular?api_key=${apiKey}`;
     const liveShowUrl = `${movieTvUrl}on_the_air?api_key=${apiKey}`;
-    const latestMovieUrl = `${moviesUrl}latest?api_key=${apiKey}`;
+    const upcomingMovieUrl = `${moviesUrl}upcoming?api_key=${apiKey}`;
 
     getLiveShow(liveShowUrl);
     getTopRatedMovies(topRatedUrl);
     getPopularMovies(popularMovieUrl);
-    getLatestMovies(latestMovieUrl);
+    getUpcomingMovies(upcomingMovieUrl);
   }, []);
 
   return (
@@ -96,9 +96,9 @@ const Home = () => {
             </div>
           </section>
           <section className="my-12">
-            <span className="text-xl font-semibold">Latest Movies</span>
+            <span className="text-xl font-semibold">Upcoming Movies</span>
             <div className="mt-3">
-              <LatestCarousel latestMovies={latestMovies} />
+              <UpcomingCarousel upcomingMovies={upcomingMovies} />
             </div>
           </section>
         </div>
