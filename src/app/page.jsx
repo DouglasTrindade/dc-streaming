@@ -1,6 +1,7 @@
 "use client";
 
-import Header from "@/components/Header";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import InputSubscribe from "@/components/InputSubscribe";
 import { useState, useEffect } from "react";
 import { LiveShowCarousel } from "@/components/LiveShowCarousel";
@@ -102,6 +103,7 @@ const Home = () => {
             </div>
           </section>
         </div>
+        <Footer />
       </hero>
     </>
   );

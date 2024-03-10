@@ -5,7 +5,7 @@ import { MdOutlineLocalMovies, MdOutlineBookmarkAdded } from "react-icons/md";
 import { CiCircleList } from "react-icons/ci";
 import { IoMdSearch } from "react-icons/io";
 
-const Header = () => {
+export const Header = () => {
   return (
     <nav className="container flex flex-wrap items-center my-6">
       <div className="flex flex-wrap items-center gap-4 text-gray-400 font-medium w-full">
@@ -45,5 +45,3 @@ const Header = () => {
     </nav>
   );
 };
-
-export default Header;
