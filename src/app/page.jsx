@@ -1,13 +1,13 @@
 "use client";
 
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import InputSubscribe from "@/components/InputSubscribe";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+import InputSubscribe from "../components/InputSubscribe";
 import { useState, useEffect } from "react";
-import { LiveShowCarousel } from "@/components/LiveShowCarousel";
-import { MostPopularCarousel } from "@/components/MostPopularCarousel";
-import { TopRatedCarousel } from "@/components/TopRatedCarousel";
-import { UpcomingCarousel } from "@/components/UpcomingCarousel";
+import { LiveShowCarousel } from "../components/LiveShowCarousel";
+import { MostPopularCarousel } from "../components/MostPopularCarousel";
+import { TopRatedCarousel } from "../components/TopRatedCarousel";
+import { UpcomingCarousel } from "../components/UpcomingCarousel";
 
 const moviesUrl = process.env.NEXT_PUBLIC_API;
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
@@ -61,10 +61,10 @@ const Home = () => {
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black via-black/20 to-black" />
         <div className="relative z-10">
           <Header />
-          <section className="container grid grid-cols-2 mt-16 text-white drop-shadow-lg">
-            <div className="">
+          <section className="container sm:grid sm:grid-cols-2 mt-16 text-white drop-shadow-lg">
+            <div>
               <span>Welcome to DC Streaming</span>
-              <div className="text-5xl font-semibold mt-6">
+              <div className="text-xl sm:text-3xl md:text-5xl font-semibold mt-6">
                 Download Unlimited Movies, Drama, Music Vídeo and More Content.
               </div>
               <div className="mt-8">

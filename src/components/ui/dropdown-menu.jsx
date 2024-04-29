@@ -5,7 +5,7 @@ import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { Check, ChevronRight, Circle } from "lucide-react";
 import Link from "next/link";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
 
@@ -70,28 +70,28 @@ const DropdownMenuContent = React.forwardRef(
 );
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName;
 
-const WithLink = ({ href, children, ...props }) =>
-  href ? (
-    <Link href={href} {...props}>
-      {children}
-    </Link>
-  ) : (
-    children
-  );
+// const WithLink = ({ href, children, ...props }) =>
+//   href ? (
+//     <Link href={href} {...props}>
+//       {children}
+//     </Link>
+//   ) : (
+//     children
+//   );
 
-const DropdownLink = ({ children, href, className, ...props }) => (
-  <DropdownMenuPrimitive.Item as="div" className="menu-item px-3">
-    <WithLink
-      href={href}
-      className={`menu-link flex-stack--disabled px-3 btn btn-sm w-full ${className}`}
-      {...props}
-    >
-      {children}
-    </WithLink>
-  </DropdownMenuPrimitive.Item>
-);
+// const DropdownLink = ({ children, href, className, ...props }) => (
+//   <DropdownMenuPrimitive.Item as="div" className="menu-item px-3">
+//     <WithLink
+//       href={href}
+//       className={`menu-link flex-stack--disabled px-3 btn btn-sm w-full ${className}`}
+//       {...props}
+//     >
+//       {children}
+//     </WithLink>
+//   </DropdownMenuPrimitive.Item>
+// );
 
-DropdownLink.displayName = DropdownMenuPrimitive.Link.displayName;
+// DropdownLink.displayName = DropdownMenuPrimitive.Link.displayName;
 
 const DropdownMenuItem = React.forwardRef(
   ({ className, inset, ...props }, ref) => (
@@ -193,7 +193,7 @@ export {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownLink,
+  // DropdownLink,
   DropdownMenuCheckboxItem,
   DropdownMenuRadioItem,
   DropdownMenuLabel,

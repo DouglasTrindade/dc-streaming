@@ -25,7 +25,7 @@ const InputSubscribe = ({ className }) => {
           />
           <button
             type="button"
-            className="bg-primary hover:bg-rose-900 text-white px-8 rounded-r-sm text-sm py-2"
+            className="bg-rose-600 hover:bg-primary text-white px-8 rounded-r-sm text-sm py-2"
           >
             Subscribe
           </button>
