@@ -12,12 +12,26 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
+import { toast } from "sonner";
 
 export const AuthForm = () => {
   const form = useForm();
+
   const handleSubmit = form.handleSubmit(async (data) => {
-    console.log(data);
-    await signIn("email", { email: data.email });
+    try {
+      console.log(data);
+
+      await signIn("email", { email: data.email, redirect: false });
+      toast({
+        titlle: "Magic Link Send",
+        description: "Check your email for the magic link to login",
+      });
+    } catch (error) {
+      toast({
+        titlle: "Error",
+        description: "An error occurred. Please try again",
+      });
+    }
   });
 
   return (
